@@ -9,13 +9,17 @@
 <body>
     <style>
         input {
-            margin: 5px 0 10px 0;
+            margin: 5px 0 0 0;
         }
 
+        p {
+            margin-bottom: 0;
+        }
+        
         .spacer {
-            padding: 0 90px;
+            padding-left: 5px;
         }
-
+        
         .container {
             display: flex;
             justify-content: space-evenly;
@@ -23,31 +27,37 @@
         .wrapper {
             margin: 10px 20px;
         }
+
+        #justify {
+            text-align: center;
+            border: 2px;
+            border-color: #000000;
+        }
     </style>
     <h2 style="text-align: center;">Symmetric and Asymmetric Algorithms</h2>
     <div class='container'>
         <div class='wrapper'>
             <h3>AES encrypting</h3>
             <form method='POST'>
-                <label for="string">String:</label><br>
-                <input type="text" name="estring" class='spacer'><br>
-                <label for="key">Key:</label><br>
-                <input type="text" name="ekey" class='spacer' placeholder='Minimum 16 Characters!'><br>
-                <label for="salt">Salt:</label><br>
-                <input type="text" name="esalt" class='spacer' placeholder='16 Characters long!'><br>
-                <input type="submit" value="Submit"><br>
+                <p>String:</p>
+                <input type="text" name="e-string" class='spacer' size='50'><br>
+                <p>Key:</p>
+                <input type="text" name="e-key" class='spacer' placeholder='Minimum 16 Characters!' size='50'><br>
+                <p>Salt:</p>
+                <input type="text" name="e-salt" class='spacer' placeholder='16 Characters long!' size='50'><br><br>
+                <input type="submit" value="Submit">
             </form>
         </div>
         <div class='wrapper'>
             <h3>AES decrypting</h3>
             <form method='POST'>
-                <label for="string">String:</label><br>
-                <input type="text" name="dstring" class='spacer'><br>
-                <label for="key">Key:</label><br>
-                <input type="text" name="dkey" class='spacer' placeholder='Minimum 16 Characters!'><br>
-                <label for="salt">Salt:</label><br>
-                <input type="text" name="dsalt" class='spacer' placeholder='16 Characters long!'><br>
-                <input type="submit" value="Submit"><br>
+                <p>String:</p>
+                <input type="text" name="d-string" class='spacer' size='50'><br>
+                <p>Key:</p>
+                <input type="text" name="d-key" class='spacer' placeholder='Minimum 16 Characters!' size='50'><br>
+                <p>Salt:</p>
+                <input type="text" name="d-salt" class='spacer' placeholder='16 Characters long!' size='50'><br><br>
+                <input type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -69,13 +79,19 @@ function aes_decrypt($string, $key, $salt) {
     return $decrypted;
 }
 
-$encrypted = aes_encrypt($_POST['estring'], $_POST['ekey'], $_POST['esalt']);
-$decrypted = aes_decrypt($_POST['dstring'], $_POST['dkey'], $_POST['dsalt']);
+if (isset($_POST['e-string']) && isset($_POST['e-key']) && isset($_POST['e-salt'])) {
+    $encrypted = aes_encrypt($_POST['e-string'], $_POST['e-key'], $_POST['e-salt']);
+?>
+    <p id='justify'> <?php echo 'The encrypted result is: '.$encrypted; ?> </p>
+<?php
+}
 
-if (isset($encrypted)) {
-    echo $encrypted;
+if (isset($_POST['d-string']) && isset($_POST['d-key']) && isset($_POST['d-salt'])) {
+    $decrypted = aes_decrypt($_POST['d-string'], $_POST['d-key'], $_POST['d-salt']);
+?>
+    <p id='justify'> <?php echo 'The decrypted result is: '.$decrypted; ?> </p>
+<?php
+
 }
-if (isset($decrypted)) {
-    echo $decrypted;
-}
+
 ?>

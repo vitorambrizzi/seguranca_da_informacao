@@ -1,22 +1,17 @@
 <?php
+$password = 'control';
+$options = ['cost' => 12];
 
-$senha = "madruga";
-$options = ['cost' => 8];
+echo '<p>', 'Password: ', $password, '.', '</p>';
 
-$hash = password_hash($senha,  PASSWORD_BCRYPT, $options); 
-echo 'Exemplo 1:'. $hash . '<p>';
+// Generating hashes
+$hash = password_hash($password, PASSWORD_BCRYPT, $options); 
+echo '<p>', 'Example 1: ', $hash, ';', '</p>';
+$hash = password_hash($password, PASSWORD_BCRYPT, $options); 
+echo '<p>', 'Example 2: ', $hash, ';', '</p>';
+$hash = password_hash($password, PASSWORD_BCRYPT, $options); 
+echo '<p>', 'Example 3: ', $hash, '.', '</p>';
 
-$hash = password_hash($senha,  PASSWORD_BCRYPT, $options); 
-echo 'Exemplo 2:'. $hash . '<p>';
-
-$hash = password_hash($senha,  PASSWORD_BCRYPT, $options); 
-echo 'Exemplo 3:'. $hash . '<p>';
-
-//----------------- COMPARANDO -------------------------
-if (crypt($senha, $hash) === $hash) {
-    echo 'Senha OK!';
-} else {
-    echo 'Senha incorreta';
-}
-
+// Comparing
+echo '<p>', (crypt($password, $hash) === $hash) ? 'Correct Password!' : 'Incorrect Password', '</p>';
 ?>

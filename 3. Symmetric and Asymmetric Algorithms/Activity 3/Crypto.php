@@ -15,6 +15,16 @@ class Crypto {
         return $decrypted;
     }
 
-    
+    // BCrypt Algorithm
+    static function bcrypt_hash($string, $cost = '10') {
+        $options = ['cost' => $cost];
+        $hash = password_hash($string, PASSWORD_BCRYPT, $options);
+
+        return $hash;
+    }
+
+    static function bcrypt_compare($string, $hash) {
+        return (crypt($string, $hash) === $hash) ? true : false;
+    }
 }
 ?>

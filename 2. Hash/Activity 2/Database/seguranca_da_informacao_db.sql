@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2022 at 09:48 PM
+-- Generation Time: Nov 07, 2022 at 02:12 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `activity_2` (
   `id` int(2) NOT NULL,
   `name` varchar(13) NOT NULL,
-  `password` varchar(64) NOT NULL,
+  `string` varchar(64) NOT NULL,
   `salt` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,7 +52,7 @@ ALTER TABLE `activity_2`
 -- AUTO_INCREMENT for table `activity_2`
 --
 ALTER TABLE `activity_2`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -80,9 +80,9 @@ if (isset($_POST['string']) && isset($_POST['salt'])) {
     </style>
 </head>
 <body>
-    <h1>MD5, SHA1 and SHA256 Hash Generator</h1>
     <div class='container'>
         <div class='item-box'>
+            <h1>MD5, SHA1 and SHA256 Hash Generator</h1>
             <p>This page saves a given string three times into seguranca_da_informacao_db, hashed with MD5, SHA1, and SHA256.</p>
             <p>It also has a salt input, but the salt will only be added to the MD5 hash.</p>
         </div>
@@ -97,20 +97,18 @@ if (isset($_POST['string']) && isset($_POST['salt'])) {
                 <input type="submit" value="Submit">
             </form>
         </div>
+        <?php
+        // Feedback messaging
+        if (isset($string) && isset($salt)) {
+            echo "<div class='item-box'>";
+                echo '<p>String given: '.$string.'</p>';
+                echo '<p>', ($salt) ? 'Salt given: '.$salt : 'No salt given!', '</p>';
+                echo '<p>MD5: '.$md5.'</p>';
+                echo '<p>SHA1: '.$sha1.'</p>';
+                echo '<p>SHA256: '.$sha256.'</p>';
+            echo '</div>';
+        }
+        ?>
     </div>
-    <?php
-    // Feedback messaging
-    if (isset($string) && isset($salt)) {
-        echo "<div class='container'>";
-        echo "<div class='item-box'>";
-        echo '<p>String given: '.$string.'</p>';
-        echo ($salt) ? '<p>Salt given: '.$salt.'</p>' : '<p>No salt given!</p>';
-        echo '<p>MD5: '.$md5.'</p>';
-        echo '<p>SHA1: '.$sha1.'</p>';
-        echo '<p>SHA256: '.$sha256.'</p>';
-        echo '</div>';
-        echo '</div>';
-    }
-    ?>
 </body>
 </html>

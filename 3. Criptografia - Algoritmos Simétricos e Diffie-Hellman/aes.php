@@ -1,5 +1,17 @@
 <?php
-require 'Crypto.php';
+function aes_encrypt($string, $key, $salt){
+    $message = openssl_encrypt($string, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $salt);
+    $encrypted = base64_encode($message);
+
+    return $encrypted;
+}
+
+function aes_decrypt($string, $key, $salt) {
+    $message = base64_decode($string);
+    $decrypted = openssl_decrypt($message, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $salt);
+
+    return $decrypted;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,12 +76,12 @@ require 'Crypto.php';
         echo "<div class='container'>";
             echo "<div class='item-box'>";
                 if (isset($_POST['e-string']) && isset($_POST['e-key']) && isset($_POST['e-salt'])) {
-                    $encrypted = Crypto::aes_encrypt($_POST['e-string'], $_POST['e-key'], $_POST['e-salt']);
+                    $encrypted = aes_encrypt($_POST['e-string'], $_POST['e-key'], $_POST['e-salt']);
                     echo '<p>', 'The encrypted result is: ', $encrypted, '</p>';        
                 }
 
                 if (isset($_POST['d-string']) && isset($_POST['d-key']) && isset($_POST['d-salt'])) {
-                    $decrypted = Crypto::aes_decrypt($_POST['d-string'], $_POST['d-key'], $_POST['d-salt']);
+                    $decrypted = aes_decrypt($_POST['d-string'], $_POST['d-key'], $_POST['d-salt']);
                     echo '<p>', 'The decrypted result is: ', $decrypted, '</p>';
                 }
             echo '</div>';

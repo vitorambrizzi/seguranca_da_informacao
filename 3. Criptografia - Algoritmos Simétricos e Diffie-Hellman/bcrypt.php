@@ -1,5 +1,14 @@
 <?php
-require 'Crypto.php';
+function bcrypt_hash($string, $cost = '10') {
+    $options = ['cost' => $cost];
+    $hash = password_hash($string, PASSWORD_BCRYPT, $options);
+
+    return $hash;
+}
+
+function bcrypt_compare($string, $hash) {
+    return (crypt($string, $hash) === $hash) ? true : false;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,12 +71,12 @@ require 'Crypto.php';
        echo "<div class='container'>";
             echo "<div class='item-box'>";
                 if (isset($_POST['h-string']) && isset($_POST['h-cost'])) {
-                    $hash = Crypto::bcrypt_hash($_POST['h-string'], $_POST['h-cost']);
+                    $hash = bcrypt_hash($_POST['h-string'], $_POST['h-cost']);
                     echo '<p>', 'The resulting hash is: ', $hash, '</p>';        
                 }
 
                 if (isset($_POST['c-string']) && isset($_POST['c-hash'])) {
-                    $equal = Crypto::bcrypt_compare($_POST['c-string'], $_POST['c-hash']);
+                    $equal = bcrypt_compare($_POST['c-string'], $_POST['c-hash']);
                     $message = ($equal) ? 'Your BCrypt hash is valid.' : 'Your string and hash do not match.';
                     echo '<p>', $message, '</p>';
                 }
